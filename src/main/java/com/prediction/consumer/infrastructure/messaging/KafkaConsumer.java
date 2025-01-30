@@ -1,14 +1,11 @@
 package com.prediction.consumer.infrastructure.messaging;
 
-import com.prediction.consumer.infrastructure.db.entities.WeatherData;
 import com.prediction.consumer.infrastructure.db.repository.FinancialDataRepository;
-import com.prediction.consumer.infrastructure.db.repository.PlotDataRepository;
 import com.prediction.consumer.infrastructure.db.repository.WeatherDataRepository;
 import com.prediction.consumer.infrastructure.messaging.data.MessageDeserializer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.MessageDeliveryException;
-import org.springframework.messaging.MessagingException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -34,39 +31,10 @@ public class KafkaConsumer {
         var convertedMessage = MessageDeserializer.deserializeAndConvertWeatherData(message);
 
         if (convertedMessage != null) {
-            System.out.println("Received financial message, now processing: " + convertedMessage);
+            System.out.println("Received weather message, now processing: " + convertedMessage);
             weatherDataRepository.saveAll(convertedMessage);
         } else {
             throw new MessageDeliveryException("Received empty message");
         }
     }
-
-//    @KafkaListener(topics = "prediction-topic", groupId = "group-1")
-//    public void listen(String message) {
-//        var convertedMessage = MessageDeserializer.serializeAndConvert(message);
-//        System.out.println("Received message, now processing: " + convertedMessage);
-//
-//        if (convertedMessage != null) {
-//            List<PlotData> foundPlotData = plotDataRepository.findAllByTimestamp(convertedMessage.getTimestamp());
-//            if (foundPlotData.isEmpty()) {
-//                plotDataRepository.save(InputDataToPlotDataConverter.convert(convertedMessage));
-//            } else {
-//                List<PlotData> converted = foundPlotData.stream()
-//                        .map(plotData -> buildPlotData(plotData, convertedMessage))
-//                        .toList();
-//                plotDataRepository.saveAll(converted);
-//            }
-//        }
-//
-//        plotDataRepository.findAll().forEach(System.out::println);
-//    }
-//
-//    private static PlotData buildPlotData(PlotData plotData, WeatherDataModel convertedMessage) {
-//        return PlotData.builder()
-//                .id(plotData.getId())
-//                .timestamp(plotData.getTimestamp())
-//                .temperature(plotData.getTemperature() == null ? convertedMessage.getTemperature() : plotData.getTemperature())
-//                .stockPrice(plotData.getStockPrice() == null ? convertedMessage.getStockPrice() : plotData.getStockPrice())
-//                .build();
-//    }
 }
