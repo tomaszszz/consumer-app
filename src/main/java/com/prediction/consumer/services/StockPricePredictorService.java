@@ -1,13 +1,14 @@
 package com.prediction.consumer.services;
 
 import weka.classifiers.functions.LinearRegression;
+import weka.classifiers.trees.RandomForest;
 import weka.core.Attribute;
 import weka.core.DenseInstance;
 import weka.core.Instances;
 import java.util.ArrayList;
 
 public class StockPricePredictorService {
-    private final LinearRegression model;
+    private final RandomForest model;
     private final Instances dataset;
 
     public StockPricePredictorService() throws Exception {
@@ -17,7 +18,7 @@ public class StockPricePredictorService {
 
         dataset = new Instances("StockPriceDataset", attributes, 0);
         dataset.setClassIndex(1); // attribute 1 is stock_price - it should be predicted
-        model = new LinearRegression();
+        model = new RandomForest();
     }
 
     public void train(double[][] temperatureData, double[][] stockPriceData) throws Exception {
