@@ -7,5 +7,4 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface WeatherDataRepository extends ListCrudRepository<WeatherData, String> {
-    List<WeatherData> findAllByTimestamp(LocalDate timestamp);
 }

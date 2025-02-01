@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/plot")
 @AllArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200") // CORS for local development, frontend needs to be running on default port
 public class PlotRestController {
     private PlotDataService plotDataService;
 

@@ -1,10 +1,10 @@
 package com.prediction.consumer.services;
 
-import weka.classifiers.functions.LinearRegression;
 import weka.classifiers.trees.RandomForest;
 import weka.core.Attribute;
 import weka.core.DenseInstance;
 import weka.core.Instances;
+
 import java.util.ArrayList;
 
 public class StockPricePredictorService {

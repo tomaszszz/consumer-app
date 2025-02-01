@@ -7,5 +7,4 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface FinancialDataRepository extends ListCrudRepository<FinancialData, String> {
-    List<FinancialData> findAllByTimestamp(LocalDate timestamp);
 }
